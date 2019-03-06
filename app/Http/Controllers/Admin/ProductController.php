@@ -52,6 +52,7 @@ class ProductController extends Controller
         $product->en_name = $validated['en_name'];
 
         $product->price = $validated['price'];
+        $product->stock = $validated['stock'];
         $product->description = $validated['description'];
         $product->category_id = $validated['category_id'];
         $product->index_id = $validated['index_id'];
@@ -113,7 +114,8 @@ class ProductController extends Controller
             'price' => ['required', 'integer'],
             'description' => ['max:255'],
             'category_id' => ['required', 'integer'],
-            'index_id' => ['required', 'integer']
+            'index_id' => ['required', 'integer'],
+            'stock' => ['required', 'integer'],
 
         ]);
     }

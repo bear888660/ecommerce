@@ -55,7 +55,14 @@
     <div class="form-group row">
         <label for="price" class="col-sm-2 col-form-label">價格*</label>
         <div class="col-md-6">
-            <input type="text" name="price" class="form-control {{ $errors->has('price') ? ' is-invalid' : '' }}" id="price" value="{{old('price') ? old('price') : $product->price}}" placeholder="價格">
+            <input type="number" name="price" class="form-control {{ $errors->has('price') ? ' is-invalid' : '' }}" id="price" value="{{old('price') ? old('price') : $product->price}}" >
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="stock" class="col-sm-2 col-form-label">存貨數*</label>
+        <div class="col-md-6">
+            <input type="number" name="stock" class="form-control {{ $errors->has('stock') ? ' is-invalid' : '' }}" id="stock" value="{{old('stock') ? old('stock') : $product->stock}}" >
         </div>
     </div>
 
@@ -85,7 +92,7 @@
     <div class="form-group row">
         <label for="resource" class="col-sm-2 col-form-label">排序*</label>
         <div class="col-md-6">
-            <input type="text" name="index_id" class="form-control {{ $errors->has('index_id') ? ' is-invalid' : '' }}" id="index_id" value="{{old('index_id') ? old('index_id') : $product->index_id}}" placeholder="排序">
+            <input type="number" name="index_id" class="form-control {{ $errors->has('index_id') ? ' is-invalid' : '' }}" id="index_id" value="{{old('index_id') ? old('index_id') : $product->index_id}}" placeholder="排序">
         </div>
     </div>
 

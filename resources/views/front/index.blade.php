@@ -2,20 +2,18 @@
 
 @section('title', 'Home')
 @section('content')
+
 <section class="hero text-center">
             <br/>
             <br/>
             <br/>
             <br/>
-            <h2 >
-            </h2>
             <br>
-
-        </section>
+</section>
         <br/>
         <div class="subheader text-center">
              <h2>
-            MyKey&rsquo;s Latest Shirts
+            Best sell
         </h2>
         </div>
         <div class="row">
@@ -23,14 +21,11 @@
                 <div class="small-3 columns">
                     <div class="item-wrapper">
                         <div class="img-wrapper">
-                            <a class="button expanded add-to-cart">
-                                Add to Cart
-                            </a>
-                            <a href="#">
+                            <a href="/detail/{{$product->id}}">
                                 <img src="{{asset('images/products/' . $product->image)}}"/>
                             </a>
                         </div>
-                        <a href="#">
+                        <a href="/detail/{{$product->id}}">
                             <h3>
                                 {{$product->name}}
                             </h3>

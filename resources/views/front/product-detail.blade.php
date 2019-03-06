@@ -16,11 +16,27 @@
                 <h3 class="subheader">
                    <span class="price-tag">${{$product->price}}</span> {{$product->name}}
                 </h3>
-                <div class="row">
-                    <div class="large-12 columns">
-                        <a href="#" class="button  expanded">Add to Cart</a>
-                    </div>
-                </div>
+                <h3 class="subheader">
+                    <input type="hidden" value="{{$currentNum}}" name="currentNum" id="currentNum">
+                    <input type="hidden" value="20" name="stock" id="stock">
+                    數量：
+                    @if ($product->stock > 0 )
+                        <select style="width:12%" name="qty" id="qty">
+                                <option value="1" selected>1</option>
+                                @foreach(range(2, 20) as $num)
+                                    <option value="{{$num}}">{{$num}}</option>
+                                @endforeach
+                        </select>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <a href="#" productId="{{$product->id}}" class="button  expanded add-to-cart">Add to Cart</a>
+                            </div>
+                        </div>
+                    @else
+                    已售完
+                    @endif
+                </h3>
+
             </div>
         </div>
     </div>

@@ -15,6 +15,7 @@ class HomeController extends Controller
 
     public function index()
     {
+
         $product_categories = ProductCategory::orderBy('index_id', 'asc')->get();
 
         $products = Product::where('is_hot', '=', true)->orderBy('updated_at')->limit(4)->get();

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ProductCategory;
 use App\Product;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
 class ProductController extends Controller
 {
     public function showProductList($cotegories1)
@@ -21,76 +21,18 @@ class ProductController extends Controller
 
     public function showProduct($id)
     {
-        $product = Product::find($id);
-        //$productCategory = ProductCategory::where('en_name', '=', $cotegories1)->first();
-        return view('front.product-detail', compact('product'));
+        $product = Product::findOrfail($id);
 
-    }
+        $currentNum = 0;
 
+        $items = Cart::content();
+        $rowId = $items->search(function($items, $rowId) use ($id){
+            return $items-> id === $id;
+        });
+        if ($rowId) {
+            $currentNum = Cart::get($rowId)->qty;
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('front.product-detail', compact('product', 'currentNum'));
     }
 }

@@ -40,6 +40,23 @@ Auth::routes();
 Route::post('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout')->middleware('auth');
 
 Route::get('/detail/{id}', 'Front\ProductController@showProduct');
+
+//cart
+Route::get('/cart', 'Front\CartController@index')->name('cart.index');
+Route::post('/cart', 'Front\CartController@store')->name('cart.store');
+Route::patch('/cart/{rowId}', 'Front\CartController@update')->name('cart.update');
+Route::delete('/cart/{rowId}', 'Front\CartController@destroy')->name('cart.destroy');
+Route::get('/cart/complete', 'Front\CartController@complete')->name('cart.complete');
+Route::get('/cart/shipping', 'Front\CartController@shipping')->name('cart.shipping');
+
+//order
+Route::get('/cart/{method}', 'Front\OrderController@create')->name('front.order.create');
+Route::post('/cart/{method}', 'Front\OrderController@store')->name('front.order.store');
+Route::get('/cart/cashflow/{method}', 'Front\OrderController@cashflow')->name('front.order.pay');
+
+
+
+
 Route::get('/{product_categories}', 'Front\ProductController@showProductList');
 
 
