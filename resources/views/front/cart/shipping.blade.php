@@ -52,7 +52,9 @@
 
                 </tr>
                 <tr>
-                    <td></td>
+                    <td align="left">
+                        <a class="btn button btn-sm btn-default" href="{{route('cart')}}">返回購物車</a>
+                    </td>
                     <td></td>
                     <td></td>
                     <td align="right">

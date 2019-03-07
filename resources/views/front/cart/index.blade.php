@@ -23,9 +23,9 @@
 
             <tbody>
                 @foreach(Cart::content() as $item)
-                    <tr class="items">
+                    <tr class="items" id="{{$item->rowId}}">
                         <td>{{$item->name}}</td>
-                        <td id="{{$item->rowId}}">{{$item->price * $item->qty}}</td>
+                        <td>{{$item->price * $item->qty}}</td>
                         <td>
                             <select rowId="{{$item->rowId}}" preValue="{{$item->qty}}" class="cartListNum" style="width:20%" name="qty" id="qty">
                                 @foreach(range(1, 20) as $num)
@@ -48,7 +48,7 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <a href="/cart/shipping"class="btn button btn-sm btn-default">下一步</a>
+                        <a href="/cart/shipping" class="btn button btn-sm btn-default">下一步</a>
                     </td>
                 </tr>
             </tbody>

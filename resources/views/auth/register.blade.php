@@ -78,7 +78,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" class="btn btn-sm btn-default" value="註冊會員">
+                        <input type="submit" class="btn btn-sm btn-default button" value="註冊會員">
                     </td>
                     <td></td>
                     <td></td>

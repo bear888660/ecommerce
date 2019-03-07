@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('order_no')->unique();
             $table->integer('user_id');
             $table->string('recipient');
             $table->string('recipient_mobile');
@@ -23,8 +24,10 @@ class CreateOrdersTable extends Migration
             $table->string('recipient_zipcode');
             $table->string('recipient_address');
             $table->string('shipping_method');
-            $table->string('status');
+            $table->string('pay_status')->default(\App\Order::PAY_STATUS_UNPAID);
+            $table->string('shipping_progress')->default(\App\Order::SHIPPING_PROGRESS_PENDING);
             $table->integer('shipping_fee');
+            $table->integer('order_price');
             $table->timestamps();
         });
     }

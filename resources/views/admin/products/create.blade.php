@@ -22,7 +22,7 @@
             <select name="category_id" id="category_id" class="form-control {{ $errors->has('category_id') ? ' is-invalid' : '' }}"  >
                 <option>請選擇</option>
                 @foreach ($product_categories as $category)
-                    @if (old('category_id') === $category->id)
+                    @if (old('category_id') === (string)$category->id)
                         <option selected value="{{$category->id}}">{{$category->name}}</option>
                     @else
                         <option value="{{$category->id}}">{{$category->name}}</option>

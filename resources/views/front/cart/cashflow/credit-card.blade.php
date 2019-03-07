@@ -36,7 +36,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="hidden" value="CraditCard" name="shippingMethod" id="shippingMethod"></td>
+                    <td align="left">
+                        <a class="btn button btn-sm btn-default" href="{{route('cart')}}">返回購物車</a>
+                        <input type="hidden" value="CraditCard" name="shippingMethod" id="shippingMethod">
+                    </td>
                     <td></td>
                     <td></td>
                     <td align="right">

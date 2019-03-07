@@ -15,6 +15,7 @@
                 <tr>
                     <th>類別</th>
                     <th>產品名稱</th>
+                    <th>存貨數</th>
                     <th>價格</th>
                     <th>排序</th>
                     <th>修改</th>
@@ -26,6 +27,7 @@
                     <tr>
                         <td>{{$product->category->name}}</td>
                         <td>{{$product->name}}</td>
+                        <td>{{$product->stock}}</td>
                         <td>{{$product->price}}</td>
                         <td>{{$product->index_id}}</td>
                         <td>

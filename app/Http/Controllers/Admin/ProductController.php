@@ -10,20 +10,20 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('index_id', 'asc')->paginate(10);
+        $products = Product::orderBy('category_id', 'asc')->orderBy('index_id', 'asc')->paginate(10);
         return view('admin.products.index', compact('products'));
     }
 
     public function create()
     {
         $product_categories = ProductCategory::orderBy('index_id', 'asc')->get();
-
         return view('admin.products.create', compact('product_categories'));
     }
 
     public function store(Request $request)
     {
         $validated = $this->validateRequest($request);
+        $this->validateImage();
 
         if ($request->hasFile('image')) {
             $validated['image'] = $this->uploadImage($request);
@@ -110,13 +110,12 @@ class ProductController extends Controller
     {
         return request()->validate([
             'name' => ['required', 'max:255'],
-            'en_name' => ['required', 'max:255'],
+            'en_name' => ['required', 'max:255', 'regex:/^[A-Za-z0-9]+$/'],
             'price' => ['required', 'integer'],
             'description' => ['max:255'],
             'category_id' => ['required', 'integer'],
             'index_id' => ['required', 'integer'],
             'stock' => ['required', 'integer'],
-
         ]);
     }
 }

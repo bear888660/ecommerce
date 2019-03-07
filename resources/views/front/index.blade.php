@@ -12,9 +12,10 @@
 </section>
         <br/>
         <div class="subheader text-center">
-             <h2>
-            Best sell
-        </h2>
+            <h2>
+                夾娃娃用<br>
+             Best seller
+            </h2>
         </div>
         <div class="row">
             @foreach($products as $product)

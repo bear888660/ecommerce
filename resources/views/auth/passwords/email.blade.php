@@ -13,18 +13,21 @@
         @csrf
         <table class="table">
             <thread>
-                <th width="6%"></th>
-                <th width="35%"></th>
-                <th width="30%"></th>
-                <th width="29%"></th>
+                <th colspan="4">
+                    @if (session('status'))
+                        <font color="red">
+                            {{ session('status') }}
+                        </font>
+                    @endif
+                </th>
             </thread>
 
             <tbody>
                 <tr>
-                    <td>
+                    <td width="6%">
                          <label for="email" class="col-md-4 col-form-label text-md-right">E-mail</label>
                     </td>
-                    <td>
+                    <td width="35%">
                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
                                 @if ($errors->has('email'))
                                     <font color="red">
@@ -32,22 +35,12 @@
                                     </font>
                                 @endif
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td width="30%"></td>
+                    <td width="29%"></td>
                 </tr>
-
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" class="btn btn-primary" value="寄送密碼重設信件">
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-
             </tbody>
         </table>
+        <div align="left"><input type="submit" class="btn btn-primary button" value="寄送密碼重設信件"></div>
     </form>
 </div>
 <section class="text-center">

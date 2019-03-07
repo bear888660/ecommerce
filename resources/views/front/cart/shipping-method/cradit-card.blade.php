@@ -14,9 +14,9 @@
             </thread>
             <tbody>
                 <tr>
-                    <td width="8%">姓名:</td>
+                    <td width="10%">姓名:</td>
                     <td width="20%"><input type="text" name="recipient" id="recipient"></td>
-                    <td width="47%"></td>
+                    <td width="45%"></td>
                     <td width="25%"></td>
                 </tr>
                 <tr>
@@ -36,10 +36,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td align="left" colspan="2">
                         <input type="hidden" value="CreditCard" name="shippingMethod" id="shippingMethod">
+                        <a class="btn button btn-sm btn-default" href="{{route('cart')}}">返回購物車</a>
                     </td>
-                    <td></td>
                     <td></td>
                     <td align="right">
                         <div class="btn button btn-sm btn-default cart-send">送出</div>

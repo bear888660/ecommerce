@@ -6,11 +6,11 @@
                 <div class="small-3 columns">
                     <div class="item-wrapper">
                         <div class="img-wrapper">
-                            <a href="detail/{{$product->id}}">
+                            <a href="/detail/{{$product->id}}">
                                 <img src="{{asset('images/products/' . $product->image)}}"/>
                             </a>
                         </div>
-                        <a href="detail/{{$product->id}}">
+                        <a href="/detail/{{$product->id}}">
                             <h3>
                                 {{$product->name}}
                             </h3>

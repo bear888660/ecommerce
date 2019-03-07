@@ -56,7 +56,7 @@
                         <label class="form-check-label" for="remember">
                                 記住我
                         </label>
-                <input type="submit" class="btn btn-sm btn-default" value="登入">
+                <input type="submit" class="btn btn-sm btn-default button" value="登入">
 
                 <a class="btn btn-primary" href="{{ route('register') }}">
                     註冊會員

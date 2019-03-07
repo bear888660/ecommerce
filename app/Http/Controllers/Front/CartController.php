@@ -42,6 +42,20 @@ class CartController extends Controller
         }
     }
 
+
+    public function setShipping()
+    {
+        if (Cart::count() <= 0) {
+            return redirect()->route('cart');
+        }
+        return view('front.cart.shipping');
+    }
+
+    public function destroy($rowId)
+    {
+        Cart::remove($rowId);
+    }
+
     protected function checkQty($qty)
     {
         if ($qty <= 0) {
@@ -91,20 +105,5 @@ class CartController extends Controller
             return $cartItem->id === (string)$productId;
         });
         return $rowId ? Cart::get($rowId) : false;
-    }
-
-    protected function shipping()
-    {
-        return view('front.cart.shipping');
-    }
-
-    protected function complete()
-    {
-
-    }
-
-    public function destroy($rowId)
-    {
-        Cart::remove($rowId);
     }
 }

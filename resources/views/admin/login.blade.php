@@ -38,12 +38,13 @@
         <input type="text" name="username" id="inputAccount" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Account address" required autofocus>
 
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control is-invalid{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password" required>
+        <input type="password" name="password" id="inputPassword" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password" required>
 
 
             @if($errors->any())
-
-                <h5>{{$errors->first()}}</h5>
+                <font color="red">
+                    {{$errors->first()}}
+                </font>
             @endif
 
 
