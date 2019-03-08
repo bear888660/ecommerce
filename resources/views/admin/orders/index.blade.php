@@ -9,12 +9,12 @@
             <thead>
                 <tr>
                     <th>訂單編號</th>
+                    <th>訂購會員</th>
                     <th>收件人</th>
                     <th>收件人電話</th>
                     <th>付款狀態</th>
                     <th>付款方式</th>
                     <th>出貨進度</th>
-
                     <th>總額</th>
                     <th>修改</th>
                 </tr>
@@ -23,6 +23,7 @@
                 @foreach($orders as $order)
                     <tr>
                         <td>{{$order->order_no}}</td>
+                        <td>{{$order->user->name}}</td>
                         <td>{{$order->recipient}}</td>
                         <td>{{$order->recipient_mobile}}</td>
                         <td>

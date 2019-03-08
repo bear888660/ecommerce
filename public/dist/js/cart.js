@@ -12,7 +12,6 @@ $('.add-to-cart').on('click', function(){
     let qty = Number($('#qty').val());
     let currentNum = Number($('#currentNum').val());
     //let stock = Number($('#stock').val());
-
     itemNum = currentNum + qty;
     if ( itemNum > 20 ) {
         showMessage('超過最大可購買數量!');
@@ -54,7 +53,7 @@ $('.cartListNum').on('change', function(){
         const msg = JSON.parse(data);
         if (msg.status === true) {
             $(this).attr('preValue', $(this).val());
-            $('#' + rowId).text(msg.itemPrice);
+            $('#' + rowId + '_price').text(msg.itemPrice);
         } else {
             const preValue = $(this).attr('preValue');
 

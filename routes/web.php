@@ -18,6 +18,8 @@ Route::group(['prefix' => 'admin'], function() {
     Route::post('/login', 'Admin\Auth\LoginController@login')->name('admin.login');
     Route::post('/logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
 
+    Route::get('/users', 'Admin\UserController@index')->name('user.index');
+
     Route::group(['middleware' => 'admin.auth'], function(){
         Route::get('/', function(){
             return view('admin.index');
@@ -43,10 +45,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout')->middleware('auth');
 Route::get('/detail/{id}', 'Front\ProductController@showProduct');
 Auth::routes();
+
+
 //cart
+Route::post('/cart', 'Front\CartController@store')->name('cart.store');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/cart', 'Front\CartController@index')->name('cart');
-    Route::post('/cart', 'Front\CartController@store')->name('cart.store');
     Route::patch('/cart/{rowId}', 'Front\CartController@update')->name('cart.update');
     Route::delete('/cart/{rowId}', 'Front\CartController@destroy')->name('cart.destroy');
     Route::get('/cart/shipping', 'Front\CartController@setShipping')->name('cart.shipping');

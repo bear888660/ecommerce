@@ -25,7 +25,7 @@
                 @foreach(Cart::content() as $item)
                     <tr class="items" id="{{$item->rowId}}">
                         <td>{{$item->name}}</td>
-                        <td>{{$item->price * $item->qty}}</td>
+                        <td id="{{$item->rowId}}_price">{{$item->price * $item->qty}}</td>
                         <td>
                             <select rowId="{{$item->rowId}}" preValue="{{$item->qty}}" class="cartListNum" style="width:20%" name="qty" id="qty">
                                 @foreach(range(1, 20) as $num)

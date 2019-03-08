@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::orderBy('created_at', 'asc')->paginate(10);
+        $orders = Order::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.orders.index', compact('orders'));
     }
 
