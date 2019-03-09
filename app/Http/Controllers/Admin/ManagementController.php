@@ -44,7 +44,6 @@ class ManagementController extends Controller
         $management->index_id = $validated['index_id'];
         $management->save();
 
-
         $redirect_url = route('managements.index') . '?' . $request->input('redirect_val');
         return redirect($redirect_url);
     }
@@ -60,7 +59,7 @@ class ManagementController extends Controller
         return request()->validate([
             'name' => ['required'],
             'resource' => ['required'],
-            'index_id' => ['required']
+            'index_id' => ['required', 'integer']
         ]);
     }
 }
