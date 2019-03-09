@@ -19,20 +19,12 @@ class ProductController extends Controller
         return view('products.product-list', compact('products', 'productCategory'));
     }
 
-    public function show($id)
-    {
+    public function show(Product $product)
+    {   
+        //dd(app(Product::class));
+    
         $product = Product::findOrfail($id);
-
-        $currentNum = 0;
-
-        $items = Cart::content();
-        $rowId = $items->search(function($items, $rowId) use ($id){
-            return $items-> id === $id;
-        });
-        if ($rowId) {
-            $currentNum = Cart::get($rowId)->qty;
-        }
-
-        return view('products.product-detail', compact('product', 'currentNum'));
+        
+        return view('products.show', compact('product', 'currentNum'));
     }
 }

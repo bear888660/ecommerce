@@ -11,10 +11,6 @@
 |
 */
 
-//產品
-Route::get('/categories/{product_categories}', 'ProductController@showProductList');
-Route::get('/products/{id}', 'ProductController@show')->name('product.show');
-
 //後台
 Route::group(['prefix' => 'admin'], function() {
 
@@ -39,6 +35,10 @@ Route::group(['prefix' => 'admin'], function() {
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
+
+//產品
+Route::get('/categories/{product_categories}', 'ProductController@showProductList');
+Route::get('/products/{productId}', 'ProductController@show')->name('product.show');
 
 Route::post('/cart', 'CartController@add')->name('cart.store');
 Route::group(['middleware' => 'auth'], function(){
