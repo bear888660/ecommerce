@@ -20,6 +20,6 @@ class HomeController extends Controller
 
         $products = Product::where('is_hot', '=', true)->where('stock', '>', 0)->orderBy('updated_at')->limit(4)->get();
 
-        return view('front/index', compact('products', 'product_categories'));
+        return view('index', compact('products', 'product_categories'));
     }
 }

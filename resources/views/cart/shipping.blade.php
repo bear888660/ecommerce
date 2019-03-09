@@ -1,4 +1,4 @@
-@extends('front.layouts.front')
+@extends('layouts.front')
 
 @section('title', 'Home')
 @section('content')
@@ -72,4 +72,27 @@
             <br/>
 </section>
 
+@endsection
+
+@section('scriptAfterJs')
+<script>
+    $(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+        $('.select-shipping-method').on('click', function(){
+            const shippinngMethod = $('.shippingMethod:checked').val();
+            if (shippinngMethod) {
+                location.href = '/cart/' + shippinngMethod;
+            } else {
+                showMessage('請選擇運送方式');
+            }
+        });
+    });
+
+</script>
 @endsection

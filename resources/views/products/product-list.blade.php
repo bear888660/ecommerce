@@ -1,4 +1,4 @@
-@extends('front.layouts.front')
+@extends('layouts.front')
 @section('title', 'shop')
 @section('content')
         <div class="row">
@@ -26,3 +26,4 @@
             @endforeach
         </div>
 @endsection
+

@@ -116,7 +116,6 @@
         </footer>
     <script src="{{asset('dist/js/app.js')}}"></script>
     <script src="{{asset('dist/js/cart.js')}}"></script>
-
-
+    @yield('scriptAfterJs')
     </body>
 </html>

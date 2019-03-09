@@ -19,7 +19,7 @@ class OrderController extends Controller
             return redirect()->route('cart');
         }
         if ($method === 'CreditCard') {
-            return view('front.cart.shipping-method.cradit-card');
+            return view('cart.shipping-method.cradit-card');
         }
         throw new \Exception('無效的付款運送方式');
     }
@@ -79,7 +79,7 @@ class OrderController extends Controller
     public function showOrders()
     {
         $orders = (new Order())->getOrdersByUser(\Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
-        return view('front.user-center.show-orders', compact('orders'));
+        return view('user-center.show-orders', compact('orders'));
     }
 
     public function showOrderDetails(Request $request)
@@ -90,7 +90,7 @@ class OrderController extends Controller
 
         $this->authorize('view', $order);
 
-        return view('front.user-center.order-details', compact('order'));
+        return view('user-center.order-details', compact('order'));
 
     }
 

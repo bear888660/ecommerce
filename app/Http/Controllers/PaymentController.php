@@ -60,7 +60,7 @@ class PaymentController extends Controller
             $success = true;
         }
 
-        return view('front.cart.complete', compact('success'));
+        return view('cart.complete', compact('success'));
     }
 
     //付款提醒

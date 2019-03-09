@@ -14,8 +14,7 @@ class FrontProvider extends ServiceProvider
 
     public function boot()
     {
-
-        view()->composer('front.layouts.front', function($view){
+        view()->composer('layouts.front', function($view){
             $view->with('nav_product_categories', ProductCategory::orderBy('index_id', 'asc')->get());
         });
     }

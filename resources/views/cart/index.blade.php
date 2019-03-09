@@ -1,4 +1,4 @@
-@extends('front.layouts.front')
+@extends('layouts.front')
 
 @section('title', 'Home')
 @section('content')
@@ -25,9 +25,9 @@
                 @foreach(Cart::content() as $item)
                     <tr class="items" id="{{$item->rowId}}">
                         <td>{{$item->name}}</td>
-                        <td id="{{$item->rowId}}_price">{{$item->price * $item->qty}}</td>
+                        <td id="{{$item->id}}_price">{{$item->price * $item->qty}}</td>
                         <td>
-                            <select rowId="{{$item->rowId}}" preValue="{{$item->qty}}" class="cartListNum" style="width:20%" name="qty" id="qty">
+                            <select productId="{{$item->id}}" preValue="{{$item->qty}}" class="cartListNum" style="width:20%" name="qty" id="qty">
                                 @foreach(range(1, 20) as $num)
                                     @if($item->qty == $num)
                                         <option selected value="{{$num}}">{{$num}}</option>
@@ -81,4 +81,62 @@
             <br/>
 </section>
 
+@endsection
+
+@section('scriptAfterJs')
+    <script>    
+    $(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.cartListNum').on('change', function(){
+            const productId = $(this).attr('productId');
+            const qty = $(this).val();
+            $.ajax({
+                method: "POST",
+                url: '/cart',
+                data: {productId, qty},
+            }).done((data) => {
+                const msg = JSON.parse(data);
+                if (msg.status === true) {
+                    $(this).attr('preValue',
+                     $(this).val());
+                    $('#' + productId + '_price').text(msg.itemPrice);
+                } else {
+                    const preValue = $(this).attr('preValue');
+
+                    $(this).find('option:selected').prop('selected', false);
+                    $(this).find('option[value="' + preValue + '"]').prop('selected', true)
+                    showMessage(msg.errMsg);
+                }
+            });
+        });
+
+
+        $('.delete-item').on('click', function(){
+            let rowId = $(this).attr('rowId');
+            $.ajax({
+                method: "POST",
+                data: {_method: 'DELETE'},
+                url: `/cart/${rowId}`,
+                }).done(() => {
+                    $('#'+rowId).remove();
+                    if ($('.items').length === 0) {
+                        $('.table').remove();
+                        $('form').append(
+                        '<section class="text-center"><br/> <br/><br/><br/><br/><br/><br/>您的購物車中沒有商品  <a href="/home">繼續購物</a><br/><br/><br/><br/><br/></section>'
+                        );
+                    }
+                })
+                .fail((message) => {
+                    showMessage('刪除失敗');
+                });
+            });
+        });
+
+
+    </script>
 @endsection

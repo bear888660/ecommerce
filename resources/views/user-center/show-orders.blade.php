@@ -1,4 +1,4 @@
-@extends('front.layouts.front')
+@extends('layouts.front')
 
 @section('title', 'Home')
 @section('content')
@@ -12,7 +12,12 @@
             <table class="table">
                 <thread >
                     <tr align="center">
-                        <th colspan="2">會員資料修改</th>
+                        <th>訂購日期</th>
+                        <th>編號</th>
+                        <th>付款方式</th>
+                        <th>付款狀態</th>
+                        <th>進度</th>
+                        <th>訂單金額</th>
                     </tr>
                 </thread>
                 <tbody>
@@ -24,16 +29,20 @@
                                 {{$order->order_no}}
                             </a>
                         </td>
-                        <td>
+                        <td width="16%">
                             {{\App\Order::$shippingMethodMap[$order->shipping_method]}}
+                        </td>
+                        <td width="16%">
+                            {{\App\Order::$payStatusMap[$order->pay_status]}}
+                            @if($order->pay_status === \App\Order::PAY_STATUS_UNPAID)
+        {{--                         <a href="{{route('MPG.pay', ['orderId'=>$order->id])}}">重新付款</a> --}}
+                            @endif
                         </td>
                         <td width="16%">
                             {{\App\Order::$shippingProgressMap[$order->shipping_progress]}}
                         </td>
                         <td width="16%">{{$order->order_price}}</td>
-                        <td width="16%">
-                            <a class="button" onclick="alert('目前無法退貨!!')">退貨</a>
-                        </td>
+
                     </tr>
                     @endforeach
                 </tbody>

@@ -16,7 +16,7 @@ class ProductController extends Controller
                         ->orderBy('index_id', 'asc')
                         ->orderBy('created_at', 'desc')
                         ->get();
-        return view('front.product-list', compact('products', 'productCategory'));
+        return view('products.product-list', compact('products', 'productCategory'));
     }
 
     public function show($id)
@@ -33,6 +33,6 @@ class ProductController extends Controller
             $currentNum = Cart::get($rowId)->qty;
         }
 
-        return view('front.product-detail', compact('product', 'currentNum'));
+        return view('products.product-detail', compact('product', 'currentNum'));
     }
 }

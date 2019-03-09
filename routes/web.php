@@ -40,8 +40,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
-
-Route::post('/cart', 'CartController@store')->name('cart.store');
+Route::post('/cart', 'CartController@add')->name('cart.store');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/cart', 'CartController@index')->name('cart');
     Route::patch('/cart/{rowId}', 'CartController@update')->name('cart.update');

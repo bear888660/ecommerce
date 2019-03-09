@@ -12,37 +12,34 @@ use App\Http\Requests\CartCraditCardRequest;
 
 class CartController extends Controller
 {
-
     public function index()
     {
-        return view('front/cart/index');
+        return view('cart/index');
     }
 
-    
-
-    public function store(Request $request)
+    public function add(Request $request)
     {
+        $qty = $request->input('qty');
+        $productId = $request->input('productId');
+        $product = Product::findOrfail($productId);
 
-        try {
-            $id = $request->input('id');
-            $qty = $request->input('qty');
-            $this->addToCart($id, $qty);
-            return json_encode(['status' => true]);
-        } catch (\Exception $e) {
-            return json_encode(['status' => false, 'errorMsg' => $e->getMessage()]);
+        if ($product->stock < $qty) {
+            return json_encode(['errMsg' => "存貨不足", 'status' => false, 'itemPrice' => $qty * $product->price]);
         }
-    }
+        if ($qty > 20) {
+            return json_encode(['errMsg' => "最大購買數量不可大於20", 'status' => false, 'itemPrice' => $qty * $product->price]);
+        }
 
-    public function update(Request $request, $rowId)
-    {
-        try {
-            $qty = $request->input('qty');
-            $item = Cart::get($rowId);
-            $item = $this->modifyCartItemQty($item, $qty);
-            return json_encode(['status' => true, 'itemPrice' => $item->qty * $item->price]);
-        } catch (\Exception $e) {
-            return json_encode(['status' => false, 'errorMsg' => $e->getMessage()]);
+        $item = $this->getCartItemByProductId($product->id);
+        
+
+        if ($item) {
+            $item = Cart::update($item->rowId, ['qty' => $qty]);
+        } else {
+            $item = Cart::add($product->id, $product->name, $qty, $product->price);
         }
+
+        return json_encode(['errMessage' => '', 'status' => true, 'itemPrice' => $item->qty * $product->price]);
     }
 
 
@@ -51,7 +48,7 @@ class CartController extends Controller
         if (Cart::count() <= 0) {
             return redirect()->route('cart');
         }
-        return view('front.cart.shipping');
+        return view('cart.shipping');
     }
 
     public function destroy($rowId)
@@ -59,53 +56,11 @@ class CartController extends Controller
         Cart::remove($rowId);
     }
 
-    protected function checkQty($qty)
-    {
-        if ($qty <= 0) {
-            $qty = 1;
-        }
-        $maxAllowQty = 20;
-        return ($qty <= $maxAllowQty) ? $qty : $maxAllowQty;
-    }
-
-    protected function checkStock(Product $product, $qty)
-    {
-        if ($qty > $product->stock) {
-            throw new \Exception('商品：' . $product->name . '存貨不足!');
-        }
-    }
-
-    protected function addToCart($ProductId, $qty)
-    {
-        //檢查產品是否已在購物車內
-        //若是則加上數量後更新購物車
-        //若不是則新增一筆購物車
-        $product = Product::findOrFail($ProductId);
-
-        $item = $this->getCartItemByProductId($ProductId);
-        if ($item) {
-            return $this->modifyCartItemQty($item, ($qty + $item->qty));
-        }
-
-        $qty = $this->checkQty($qty);
-        $this->checkStock($product, $qty);
-        return Cart::add($ProductId, $product->name, $qty, $product->price);
-    }
-
-    protected function modifyCartItemQty($item, $qty)
-    {
-
-        $product = Product::findOrFail($item->id);
-        $qty = $this->checkQty($qty);
-        $this->checkStock($product, $qty);
-        return Cart::update($item->rowId, ['qty' => $qty]);
-    }
-
     protected function getCartItemByProductId($productId)
     {
         $items = Cart::content();
         $rowId = $items->search(function($cartItem, $rowId) use ($productId){
-            return $cartItem->id === (string)$productId;
+            return $cartItem->id === $productId;
         });
         return $rowId ? Cart::get($rowId) : false;
     }
