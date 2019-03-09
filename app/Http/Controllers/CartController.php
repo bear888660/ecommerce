@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
@@ -18,8 +18,11 @@ class CartController extends Controller
         return view('front/cart/index');
     }
 
+    
+
     public function store(Request $request)
     {
+
         try {
             $id = $request->input('id');
             $qty = $request->input('qty');

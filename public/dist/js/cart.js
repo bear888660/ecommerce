@@ -118,11 +118,10 @@ $('.cart-send').on('click', function(){
         }).done((data) => {
             const msg = JSON.parse(data);
             if (msg.status === 'true') {
-                location.href=`/cashflow/MPG/pay/` + msg.orderId;
+                location.href=`/payment/${msg.orderId}/MPGpay`;
             } else {
                 showMessage(msg.errorMsg);
             }
-
         })
         .fail((data) => {
             const errors = data.responseJSON.errors;

@@ -81,13 +81,13 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item" href="{{ route('user.logout') }}"
+                            <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                 登出
                             </a>
 
-                            <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </li>

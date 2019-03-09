@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,7 @@ class ProductController extends Controller
         return view('front.product-list', compact('products', 'productCategory'));
     }
 
-    public function showProduct($id)
+    public function show($id)
     {
         $product = Product::findOrfail($id);
 
