@@ -3,9 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Notifications\Notifiable;
 class Order extends Model
 {
+    use Notifiable;
     //訂單狀態
     const PAY_STATUS_UNPAID = '1';
     const PAY_STATUS_PAID = '2';
@@ -78,12 +79,17 @@ class Order extends Model
         return $this->hasMany(OrderCashFlow::class);
     }
 
-    public function getOrdersByUser($userId)
+
+    public static function findByOrderNo($orderNo)
     {
-        return $this->where('user_id', '=', $userId);
+        return self::where('order_no', $orderNo)->first();
     }
 
-
+    public function shipped()
+    {
+        $this->shipping_progress = Order::SHIPPING_PROGRESS_DELIVERED;
+        return $this->save();
+    }
 
     public static function generateOrderNo()
     {
@@ -95,5 +101,4 @@ class Order extends Model
             }
         }
     }
-
 }

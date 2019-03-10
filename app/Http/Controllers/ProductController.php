@@ -11,20 +11,21 @@ class ProductController extends Controller
 {
     public function showProductList($cotegories1)
     {
-        $productCategory = ProductCategory::where('en_name', '=', $cotegories1)->first();
+
+        $productCategory = ProductCategory::findByEnName($cotegories1);
+
         $products = $productCategory->products()
                         ->orderBy('index_id', 'asc')
                         ->orderBy('created_at', 'desc')
                         ->get();
+                        
         return view('products.product-list', compact('products', 'productCategory'));
     }
 
-    public function show(Product $product)
+    public function show($id)
     {   
-        //dd(app(Product::class));
-    
         $product = Product::findOrfail($id);
         
-        return view('products.show', compact('product', 'currentNum'));
+        return view('products.show', compact('product'));
     }
 }

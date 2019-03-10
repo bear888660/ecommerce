@@ -12,6 +12,11 @@ use App\Http\Requests\CartCraditCardRequest;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('cart.has.item')->except(['index', 'add', 'destroy']);
+    }
+
     public function index()
     {
         return view('cart/index');
@@ -45,9 +50,6 @@ class CartController extends Controller
 
     public function setShipping()
     {
-        if (Cart::count() <= 0) {
-            return redirect()->route('cart');
-        }
         return view('cart.shipping');
     }
 

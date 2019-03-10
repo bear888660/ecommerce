@@ -8,6 +8,7 @@ use App\Order;
 use App\OrderCashFlow;
 use App\Classes\PaymentServiceProviderFactoryImp;
 
+
 class PaymentController extends Controller
 {
     public function payByMPG($orderId)
@@ -55,12 +56,9 @@ class PaymentController extends Controller
         $JSONData = $request->input('JSONData');
         $data = json_decode($JSONData, true);
 
-        $success = false;
-        if ('SUCCESS' === $data['Status']) {
-            $success = true;
-        }
-
-        return view('cart.complete', compact('success'));
+        return view('cart.complete', [
+            'success' => 'SUCCESS' === $data['Status']
+        ]);
     }
 
     //付款提醒
@@ -75,13 +73,14 @@ class PaymentController extends Controller
         $order = Order::where('order_no', '=', $order_no)->first();
 
         if ('SUCCESS' === $data['Status']) {
-            $order->pay_status = Order::PAY_STATUS_PAID;
+            $order->pay_status = Order::PAY_STATUS_PAID; 
         } else {
             $order->pay_status = Order::PAY_STATUS_FAILED;
         }
-
+        
         $order->save();
 
+        
         $order->orderCashFlow()->create([
             'provider' => 'MPG',
             'status' => $data['Status'],

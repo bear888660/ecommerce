@@ -13,4 +13,9 @@ class ProductCategory extends Model
     {
         return $this->hasMany(Product::class, 'category_id');
     }
+
+    public static function findByEnName($enName)
+    {
+        return self::where('en_name', '=', $enName)->first();
+    }
 }

@@ -44,3 +44,12 @@
 
         <br>
 @endsection
+
+
+@section('scriptAfterJs')
+  @if(session()->has('msg'))
+    <script>
+        alert('{{session()->get('msg')}}')
+    </script>
+  @endif
+@endsection

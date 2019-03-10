@@ -21,7 +21,7 @@ class ProductCategoryController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $this->validateRequest($request);
+        $validated = $this->validateRequest();
         ProductCategory::create($validated);
         $redirect_url = route('product-categories.index') . '?' . $request->input('redirect_val');
         return redirect($redirect_url);
@@ -34,7 +34,7 @@ class ProductCategoryController extends Controller
 
     public function update(Request $request, ProductCategory $product_category)
     {
-        $validated = $this->validateRequest($request);
+        $validated = $this->validateRequest();
         $product_category->name = $validated['name'];
         $product_category->en_name = $validated['en_name'];
         $product_category->index_id = $validated['index_id'];
@@ -47,10 +47,10 @@ class ProductCategoryController extends Controller
     public function destroy(ProductCategory $product_category)
     {
         $product_category->delete();
-        return redirect()->back();
+        return back();
     }
 
-    protected function validateRequest(Request $request)
+    protected function validateRequest()
     {
         return request()->validate([
             'name' => ['required'],

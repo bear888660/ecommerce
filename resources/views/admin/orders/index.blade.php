@@ -50,7 +50,4 @@
     No data
     @endif
 </div>
-@if (session('shippingStatusUpdated'))
-    <script>alert('{{ session('shippingStatusUpdated') }}')</script>
-@endif
 @endsection

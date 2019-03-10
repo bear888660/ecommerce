@@ -6,21 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use App\OrderDetail;
 use App\Product;
-use App\OrderCashFlow;
+use App\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Requests\OrderRequest;
 
 class OrderController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('cart.has.item')->except('showOrders', 'showOrderDetails');
+    }
+
     public function create($method)
     {
-        if (Cart::count() <= 0) {
-            return redirect()->route('cart');
-        }
         if ($method === 'CreditCard') {
             return view('cart.shipping-method.cradit-card');
         }
+
         throw new \Exception('無效的付款運送方式');
     }
 
@@ -73,28 +76,20 @@ class OrderController extends Controller
         return json_encode($error);
     }
 
-
-
-
     public function showOrders()
     {
-        $orders = (new Order())->getOrdersByUser(\Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10);
-        return view('user-center.show-orders', compact('orders'));
+        return view('user-center.show-orders', [
+            'orders' => auth()->user()->orders()->orderBy('created_at', 'desc')->paginate(10)
+        ]);
     }
 
     public function showOrderDetails(Request $request)
-    {
+    {    
         $orderNo = $request->input('orderNo');
-
-        $order = Order::where('order_no', '=', $orderNo)->first();
+        $order = Order::findByOrderNo($orderNo);
 
         $this->authorize('view', $order);
 
         return view('user-center.order-details', compact('order'));
-
     }
-
-
-
-
 }

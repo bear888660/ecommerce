@@ -17,8 +17,6 @@
                    <span class="price-tag">${{$product->price}}</span> {{$product->name}}
                 </h3>
                 <h3 class="subheader">
-                    <input type="hidden" value="{{$currentNum}}" name="currentNum" id="currentNum">
-                    <input type="hidden" value="20" name="stock" id="stock">
                     數量：
                     @if ($product->stock > 0 )
                         <select style="width:12%" name="qty" id="qty">

@@ -20,7 +20,7 @@ class ManagementController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $this->validateRequest($request);
+        $validated = $this->validateRequest();
 
         Management::create($validated);
 
@@ -38,7 +38,7 @@ class ManagementController extends Controller
 
     public function update(Request $request, Management $management)
     {
-        $validated = $this->validateRequest($request);
+        $validated = $this->validateRequest();
         $management->name = $validated['name'];
         $management->resource = $validated['resource'];
         $management->index_id = $validated['index_id'];
@@ -51,10 +51,10 @@ class ManagementController extends Controller
     public function destroy(Management $management)
     {
         $management->delete();
-        return redirect()->back();
+        return back();
     }
 
-    protected function validateRequest(Request $request)
+    protected function validateRequest()
     {
         return request()->validate([
             'name' => ['required'],

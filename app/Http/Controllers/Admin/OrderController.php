@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
@@ -21,6 +20,7 @@ class OrderController extends Controller
 
     public function ship(Request $request, $id)
     {
+        
         $order = Order::find($id);
 
         if ($order->pay_status !== Order::PAY_STATUS_PAID) {
@@ -30,14 +30,10 @@ class OrderController extends Controller
         if ($order->shipping_progress !== Order::SHIPPING_PROGRESS_PENDING) {
             throw new \Exception('訂單已出貨!');
         }
-
-        $order->shipping_progress = Order::SHIPPING_PROGRESS_DELIVERED;
-        $order->save();
-
-        //$redirect_url = route('orders.index') . '?' . $request->input('redirect_val');
-
-        //return redirect($redirect_url)->with('shippingStatusUpdated', '訂單：' . $order->order_no . '已更改為出貨!');
-        return redirect()->back();
+        
+        $order->shipped();
+        flash('msg', '訂單：' . $order->order_no . '已更改為出貨!');
+        return back();
     }
 
     public function tradeReview($id)
@@ -46,7 +42,8 @@ class OrderController extends Controller
         $orderCashFlow = $order->orderCashFlow()->first();
 
         if ($orderCashFlow === null) {
-            return redirect()->back();
+            flash('msg', '找不到此筆訂單交易紀錄!');
+            return back();
         }
         return view('admin.orders.trade-review', compact('orderCashFlow'));
     }

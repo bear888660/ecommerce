@@ -129,5 +129,7 @@
     </div>
     <input name="redirect_val" type="hidden" value="{{Request::input('redirect_val')}}">
 </form>
-
 @endsection
+@if (session('msg'))
+    <script>alert('{{ session('msg') }}')</script>
+@endif
