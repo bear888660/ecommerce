@@ -69,7 +69,7 @@ class PaymentController extends Controller
         $orderData = json_decode($data['Result'], true);
 
         $order_no = $orderData['MerchantOrderNo'];
-
+        
         $order = Order::where('order_no', '=', $order_no)->first();
 
         if ('SUCCESS' === $data['Status']) {

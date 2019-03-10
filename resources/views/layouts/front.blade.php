@@ -57,7 +57,7 @@
                             <i class="fa fa-shopping-cart fa-2x" aria-hidden="true">
                             </i>
                             CART
-                            <span class="alert badge">
+                            <span class="alert badge" id="shipping-badge">
                                 {{Cart::count()}}
                             </span>
                         </a>

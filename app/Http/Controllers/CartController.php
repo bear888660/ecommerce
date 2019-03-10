@@ -14,7 +14,7 @@ class CartController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('cart.has.item')->except(['index', 'add', 'destroy']);
+        //$this->middleware('cart.has.item')->except(['index', 'add', 'destroy', 'countItem']);
     }
 
     public function index()
@@ -56,6 +56,16 @@ class CartController extends Controller
     public function destroy($rowId)
     {
         Cart::remove($rowId);
+    }
+
+    public function countItems()
+    {
+        try {
+            $num = Cart::count();
+            return json_encode(['status' => true, 'data' => ['num' => $num]]);
+        } catch (\Exception $e) {
+            return json_encode(['status' => false, 'errMessage' => 'unknow error was occur. please try again.']);
+        }
     }
 
     protected function getCartItemByProductId($productId)

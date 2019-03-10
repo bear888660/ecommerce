@@ -58,9 +58,11 @@
                 method: "POST",
                 url: "/cart",
                 data: {productId, qty},
-            }).done(function(data) {
+            }).done(data => {
+
                 const msg = JSON.parse(data);
                 if (msg.status === true) {
+                    flashCartItemsNum();
                     return showMessage('商品已加入購物車');
                 } 
                 showMessage(msg.errMsg);

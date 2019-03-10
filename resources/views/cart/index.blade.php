@@ -101,6 +101,7 @@
                 data: {productId, qty},
             }).done((data) => {
                 const msg = JSON.parse(data);
+                flashCartItemsNum();
                 if (msg.status === true) {
                     $(this).attr('preValue',
                      $(this).val());
@@ -124,6 +125,7 @@
                 url: `/cart/${rowId}`,
                 }).done(() => {
                     $('#'+rowId).remove();
+                    flashCartItemsNum();
                     if ($('.items').length === 0) {
                         $('.table').remove();
                         $('form').append(

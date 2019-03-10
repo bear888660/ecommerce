@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::patch('/cart/{rowId}', 'CartController@update')->name('cart.update');
     Route::delete('/cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
     Route::get('/cart/shipping', 'CartController@setShipping')->name('cart.shipping');
+    Route::get('/cart/count-items', 'CartController@countItems')->name('cart.count-item');
 
     //order
     Route::get('/cart/{method}', 'OrderController@create')->name('front.order.create');
