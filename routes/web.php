@@ -41,12 +41,13 @@ Route::get('/categories/{product_categories}', 'ProductController@showProductLis
 Route::get('/products/{productId}', 'ProductController@show')->name('product.show');
 
 Route::post('/cart', 'CartController@add')->name('cart.store');
+Route::get('/cart/count-items', 'CartController@countItems')->name('cart.count-item');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/cart', 'CartController@index')->name('cart');
     Route::patch('/cart/{rowId}', 'CartController@update')->name('cart.update');
     Route::delete('/cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
     Route::get('/cart/shipping', 'CartController@setShipping')->name('cart.shipping');
-    Route::get('/cart/count-items', 'CartController@countItems')->name('cart.count-item');
+    
 
     //order
     Route::get('/cart/{method}', 'OrderController@create')->name('front.order.create');
