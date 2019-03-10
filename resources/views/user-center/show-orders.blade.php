@@ -35,7 +35,7 @@
                         <td width="16%">
                             {{\App\Order::$payStatusMap[$order->pay_status]}}
                             @if($order->pay_status === \App\Order::PAY_STATUS_UNPAID)
-        {{--                         <a href="{{route('MPG.pay', ['orderId'=>$order->id])}}">重新付款</a> --}}
+                                 <a href="{{route('payment.MPGpay', ['orderId'=>$order->id])}}">重新付款</a>
                             @endif
                         </td>
                         <td width="16%">
