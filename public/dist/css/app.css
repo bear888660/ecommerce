@@ -3,14 +3,33 @@
     border-bottom: 5px solid rgba(180,180,180,0.88);
 }
 
+.brand-title a {
+    vertical-align: middle;
+    font-size: 30px;
+}
+
+.menu {
+    vertical-align: middle;
+}
+
 .top-bar {
     padding: 10px 100px;
+    
 }
-.top-bar a{
-	color: white;
+
+.top-bar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display:inline-block !important;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .top-bar a:hover{
-	text-decoration: underline;
+    color:#eeeeee;
+}
+
+.top-bar a:active{
+	color:#eeeeee;
 }
 
 
@@ -71,9 +90,6 @@ h3 {
   font-size: 22px;
 }
 
-h5 {
-  font-weight: bold;
-}
 
 p {
   color: #888;
@@ -126,9 +142,4 @@ p {
 .price-tag{
 	font-size: 46px;
 	color: rgba(53, 105, 28, 0.77);
-}
-
-.brand-title{
-  font-size: 30px;
-  padding-top: 10px;
 }
